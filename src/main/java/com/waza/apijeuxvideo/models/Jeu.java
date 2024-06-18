@@ -2,6 +2,8 @@ package com.waza.apijeuxvideo.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -11,8 +13,17 @@ public class Jeu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Le champ nom ne peut pas être null")
+    @NotBlank(message = "Le champ nom ne peut pas être vide")
     private String nom;
+
+    @NotNull(message = "Le champ description ne peut pas être null")
+    @NotBlank(message = "Le champ description ne peut pas être vide")
     private String description;
+
+    @NotNull(message = "Le champ dateSortie ne peut pas être null")
+    @NotBlank(message = "Le champ dateSortie ne peut pas être vide")
     private String dateSortie;
 
     @OneToMany(mappedBy="jeu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

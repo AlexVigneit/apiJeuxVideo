@@ -3,6 +3,7 @@ package com.waza.apijeuxvideo.controllers;
 import com.waza.apijeuxvideo.models.Avis;
 import com.waza.apijeuxvideo.models.Jeu;
 import com.waza.apijeuxvideo.repository.JeuRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/jeux")
+@RequestMapping("/api/jeux")
 public class JeuController {
 
     @Autowired
     private JeuRepository jeuRepository;
 
-    @PostMapping
-    public ResponseEntity<Jeu> addJeu(@RequestBody Jeu jeu) {
+    @PostMapping("/")
+    public ResponseEntity<Jeu> addJeu(@Valid @RequestBody Jeu jeu) {
         Jeu savedJeu = jeuRepository.save(jeu);
         return new ResponseEntity<>(savedJeu, HttpStatus.CREATED);
     }
@@ -48,7 +49,7 @@ public class JeuController {
         return jeu != null ? new ResponseEntity<>(jeu, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<Jeu>> getAllJeux() {
         List<Jeu> jeux = jeuRepository.findAll();
         return new ResponseEntity<>(jeux, HttpStatus.OK);
